@@ -29,7 +29,13 @@ func MaybeURL(in string) bool {
 	// like regex strings, blocks of HTML etc. We will miss
 	// a handful of URLs this way, but that's probably
 	// better than spitting out a ton of false-positives
-	if strings.ContainsAny(in, " ()!<>'\"`{}^$,") {
+
+	// Original
+	// if strings.ContainsAny(in, " ()!<>'\"`{}^$,") {
+	// 	return false
+	// }
+	// Modified to add support for template strings
+	if strings.ContainsAny(in, " ()!<>'\"`^,") {
 		return false
 	}
 
