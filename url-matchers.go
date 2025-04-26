@@ -318,6 +318,22 @@ func AllURLMatchers() []URLMatcher {
 				Source: n.Content(),
 			}
 		}},
+
+		// now template strings (backticks)
+		// strip backticks and parse same as a string
+		{"template_string", func(n *Node) *URL {
+			raw := n.RawString() // e.g. "`https://foo/${bar}`"
+			// strip backticks
+			stripped := strings.Trim(raw, "`")
+			if !MaybeURL(stripped) {
+				return nil
+			}
+			return &URL{
+				URL:    stripped,
+				Type:   "templateLiteral",
+				Source: n.Content(),
+			}
+		}},
 	}
 
 	return matchers
