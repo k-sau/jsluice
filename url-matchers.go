@@ -99,7 +99,7 @@ func (a *Analyzer) GetURLs() []*URL {
 	}
 
 	// find the nodes we need in the the tree and run the enter function for every node
-	a.Query("[(assignment_expression) (call_expression) (string)] @matches", enter)
+	a.Query("[(assignment_expression) (call_expression) (string) (template_string)] @matches", enter)
 
 	return matches
 }
