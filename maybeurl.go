@@ -25,6 +25,14 @@ func MaybeURL(in string) bool {
 		return false
 	}
 
+	// Custom
+	// This could be prone to false positives, but it
+	// seems that in the wild most strings that start
+	// with a template(`) and slash are actually paths
+	if strings.HasPrefix(in, "`/") {
+		return true
+	}
+
 	// We want to be fairly restrictive to cut out things
 	// like regex strings, blocks of HTML etc. We will miss
 	// a handful of URLs this way, but that's probably
